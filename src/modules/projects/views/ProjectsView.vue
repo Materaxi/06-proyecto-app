@@ -28,10 +28,16 @@
 
     </div>
 
-    <FabButton position="bottom-right"/>
+    <InputModal/>
+
+    <FabButton @click="()=>console.log('Clicked')">
+      <AddCircle/>
+    </FabButton> />
 </template>
 
 <script lang="ts" setup>
 import FabButton from '@/modules/common/components/FabButton.vue';
+import AddCircle from '@/modules/common/icons/AddCircle.vue';
+import InputModal from '@/modules/common/components/InputModal.vue';
 
 </script>
