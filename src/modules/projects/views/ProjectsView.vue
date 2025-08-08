@@ -31,15 +31,34 @@
   <InputModal :open="modelOpen" @close="modelOpen = false" @value="onNewValue"
     placeholder="Ingrese el Nombre del proyecto" title="Nuevo Proyecto" subtitle="Ingrese el Nombre del Proyecto" />
 
-  <custom-modal />
+  <custom-modal :open="customModalOpen">
+    <template #header>
+      <h3 class="font-bold text-lg">Header Content</h3>
+
+    </template>
+
+
+
+    <template #body>
+
+      <p>Texto</p>
+
+    </template>
+
+    <template #footer>
+      <button @click="customModalOpen=false" class="btn mr-4">Close</button>
+      <button @click="customModalOpen=false" class="btn btn-primary">Aceptar</button>
+    </template>
+
+  </custom-modal>
 
   <FabButton position="top-right" @click="modelOpen = true">
     <AddCircle />
-  </FabButton> />
+  </FabButton>
 
   <FabButton position="bottom-left" @click="customModalOpen = true">
     <AddCircle />
-  </FabButton> />
+  </FabButton>
 
 
 </template>
