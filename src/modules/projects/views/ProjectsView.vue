@@ -14,11 +14,14 @@
         <!-- row 1 -->
 
         <!-- row 2 -->
-        <tr class="hover:bg-base-300">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
+        <tr v-for="(project, index) in projectsStore.projectsList" :key="project.id" class="hover:bg-base-300">
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.tasks.length }}</td>
+          <td>
+            <progress class="progress progress-primary w-56" :value="40" max="100">
+            </progress>
+          </td>
         </tr>
         <!-- row 3 -->
 
@@ -28,7 +31,7 @@
 
   </div>
 
-  <InputModal :open="modelOpen" @close="modelOpen = false" @value="onNewValue"
+  <InputModal :open="modelOpen" @close="modelOpen = false" @value="projectsStore.addProject"
     placeholder="Ingrese el Nombre del proyecto" title="Nuevo Proyecto" subtitle="Ingrese el Nombre del Proyecto" />
 
   <custom-modal :open="customModalOpen">
@@ -37,17 +40,23 @@
 
     </template>
 
-
-
     <template #body>
 
-      <p>Texto</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde accusamus a nulla nihil pariatur maiores tempora
+        vitae ad consectetur, rerum ut? Maxime adipisci, commodi assumenda dolorum nostrum porro quod dolores ullam eos
+        odit facere soluta minus qui eligendi veritatis exercitationem nesciunt, dolorem esse! Optio commodi adipisci
+        voluptatem necessitatibus veritatis corrupti!
+      </p>
 
     </template>
 
     <template #footer>
-      <button @click="customModalOpen=false" class="btn mr-4">Close</button>
-      <button @click="customModalOpen=false" class="btn btn-primary">Aceptar</button>
+      <div class="flex justify-end ">
+
+        <button @click="customModalOpen = false" class="btn mr-4">Close</button>
+        <button @click="customModalOpen = false" class="btn btn-primary">Aceptar</button>
+      </div>
+
     </template>
 
   </custom-modal>
@@ -69,11 +78,12 @@ import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import InputModal from '@/modules/common/components/InputModal.vue';
 import { ref } from 'vue';
 import CustomModal from '@/modules/common/components/CustomModal.vue';
+import { useProjectsStore } from '../store/projects.store';
 
 const modelOpen = ref(false);
 const customModalOpen = ref(false);
 
-const onNewValue = (projectName: string) => {
-  console.log({ projectName })
-}
+const projectsStore = useProjectsStore();
+
+
 </script>
