@@ -8,7 +8,7 @@
       <div class="modal-action flex flex-col">
         <form method="dialog" @submit.prevent="submitValue">
 
-          <input ref="inputRef" type="text" :pleaceholder="placeholder ?? 'Nombre del Proyecto'"
+          <input ref="inputRef" type="text" :placeholder="placeholder ?? 'Nombre del Proyecto'"
             class="input input-bordered input-primary w-full flex-1" v-model="inputValue" />
           <!-- if there is a button in form, it will close the modal -->
           <div class="flex justify-end mt-5">
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import {  ref, watch } from 'vue';
 
 interface Props {
   open: boolean;
@@ -36,7 +36,8 @@ interface Props {
   title?: string;
   subtitle?: string;
 }
-defineProps<Props>();
+
+const props = defineProps<Props>();
 
 const emits = defineEmits<{
   close: [void];
@@ -45,6 +46,19 @@ const emits = defineEmits<{
 
 const inputValue = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
+
+watch(props, ({ open }) => {
+
+  if (open) {
+    setTimeout(() => {
+
+      inputRef.value?.focus();
+
+    }, 50);
+  }
+}
+
+);
 
 const submitValue = () => {
 
