@@ -19,9 +19,12 @@
           <tbody>
 
             <tr v-for="task in project?.tasks" :key="task.id" class="hover:bg-base-300">
-              <th>2</th>
+              <th>
+                <input type="checkbox" class="checkbox checkbox-primary" :checked="!!task.completedAt"
+                  @change="projectStore.toggleTask(project?.id ?? '', task.id)" />
+              </th>
               <td>{{ task.name }}</td>
-              <td>Desktop Support Technician</td>
+              <td>{{task.completedAt}}</td>
 
             </tr>
 
@@ -29,11 +32,8 @@
               <th></th>
               <td>
                 <input type="text"
-                class="input input-primary w-full opacity-60 transition-all hover:opacity-100 focus:opacity-100"
-                placeholder="Nueva Tarea..."
-                  v-model="newTask"
-                @keyup.enter="addTask"
-                />
+                  class="input input-primary w-full opacity-60 transition-all hover:opacity-100 focus:opacity-100"
+                  placeholder="Nueva Tarea..." v-model="newTask" @keyup.enter="addTask" />
               </td>
               <td></td>
 
@@ -67,10 +67,10 @@ const newTask = ref("");
 
 //const project = projectsStore.projectsList.find(p => p.id === props.id);
 
-const addTask=()=>{
- if(!project.value) return;
+const addTask = () => {
+  if (!project.value) return;
   projectStore.addTaskToProject(project.value.id, newTask.value);
-  newTask.value="";
+  newTask.value = "";
 }
 
 watch(
